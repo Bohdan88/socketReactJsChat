@@ -1,0 +1,158 @@
+// Colours
+// To avoid conflicts with name for color, please, use http://chir.ag/projects/name-that-color/ .
+$white: #fff;
+$alabaster: #fbfbfb;
+$white-smoke: #f5f5f5;
+$azure: #f5fafa;
+$lavender: #ececee; 
+$aluminium: #a7abb5;
+$scorpion: #5a5a5a;
+$tuna: #363a3f;
+$shark: #1e2023;
+$shark-inner: #1e1f23;
+$woodsmoke: #121416;
+$woodsmoke-inner: #090b0b;
+$black: #000;
+$picton-blue: #3c93f3;
+$royal-blue: #3273dc;
+$biscay: #143464;
+//
+
+// Naming
+$bg: 'bg';
+$navbar: 'navbar';
+$title: 'title';
+$title-column: 'title-column';
+$title-small: 'title-small';
+$border: 'border';
+$border-active: 'border-active';
+$box-shadow: 'box-shadow';
+$column-bg: 'column-bg';
+$card-bg: 'card-bg';
+$btn-add-bg: 'btn-add-bg';
+$input-bg: 'input-bg';
+$input-color: 'input-color';
+$input-timer: 'input-timer';
+$info-tag-bg: 'info-tag-bg';
+$info-tag-color: 'info-tag-color';
+$timer-span-words: 'timer-span-words';
+
+// Declaration
+$bg--light: $white;
+$bg--dark: $woodsmoke;
+
+$navbar--light: $white;
+$navbar--dark: $woodsmoke;
+
+$title--light: $shark;
+$title--dark: $aluminium;
+
+$title-small--light: $shark;
+$title-small--dark: $aluminium;
+
+$title-column--light: $shark;
+$title-column--dark: $scorpion;
+
+$border--light: $aluminium;
+$border--dark: $tuna;
+
+$border-active--light: $royal-blue;
+$border-active--dark: $royal-blue;
+
+$box-shadow--light: 0 0 0 0.125em, rgba(50, 115, 220, 0.25);
+$box-shadow--dark: 0 0 0 0.125em, rgba(50, 115, 220, 0.25);
+
+$column-bg--light: $alabaster;
+$column-bg--dark: $woodsmoke;
+
+$card-bg--light: $azure;
+$card-bg--dark: $woodsmoke-inner;
+
+$btn-add-bg--light: $azure;
+$btn-add-bg--dark: $shark-inner;
+
+$input-bg--light: $white;
+$input-bg--dark: $shark;
+
+$input-color--light: $black;
+$input-color--dark: $aluminium;
+
+$info-tag-bg--light: $biscay;
+$info-tag-bg--dark: $biscay;
+
+$info-tag-color--light: $white;
+$info-tag-color--dark: $picton-blue;
+
+$timer-span-words--light: $scorpion;
+$timer-span-words--dark: $white;
+
+$input-timer--light: $lavender;
+$input-timer--dark: $black;
+
+// Themes
+$themes: (
+  light: (
+    bg: $bg--light,
+    navbar: $navbar--light,
+    title: $title--light,
+    title-column: $title-column--light,
+    title-small: $title-small--light,
+    border: $border--light,
+    border-active: $border-active--light,
+    column-bg: $column-bg--light,
+    card-bg: $card-bg--light,
+    input-bg: $input-bg--light,
+    input-color: $input-color--light,
+    info-tag-bg: $info-tag-bg--light,
+    info-tag-color: $info-tag-color--light,
+    btn-add-bg: $btn-add-bg--light,
+    box-shadow: $box-shadow--light,
+    timer-span-words: $timer-span-words--light,
+    input-timer: $input-timer--light,
+  ),
+  dark: (
+    bg: $bg--dark,
+    navbar: $navbar--dark,
+    title: $title--dark,
+    title-column: $title-column--dark,
+    title-small: $title-small--dark,
+    border: $border--dark,
+    border-active: $border-active--dark,
+    column-bg: $column-bg--dark,
+    card-bg: $card-bg--dark,
+    input-bg: $input-bg--dark,
+    input-color: $input-color--dark,
+    info-tag-bg: $info-tag-bg--dark,
+    info-tag-color: $info-tag-color--dark,
+    btn-add-bg: $btn-add-bg--dark,
+    box-shadow: $box-shadow--dark,
+    timer-span-words: $timer-span-words--dark,
+    input-timer: $input-timer--dark,
+  ),
+);
+
+// Mixin
+@mixin themed() {
+  @each $theme, $map in $themes {
+    [data-theme='#{$theme}'] & {
+      $theme-map: () !global;
+
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}
