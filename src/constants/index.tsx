@@ -3,9 +3,10 @@ export const ItemTypes = {
 };
 
 /* API */
-export const END_POINT: string = 'http://localhost:5000/';
-export const INIT_PAGE: string = 'http://localhost:5555/';
-
+// export const END_POINT: string = 'http://localhost:5000/';
+// export const INIT_PAGE: string = 'http://localhost:5555/';
+export const END_POINT: string = 'https://reactjschatap.herokuapp.com/';
+export const INIT_PAGE: string = 'https://focused-goldwasser-f86044.netlify.app/';
 /* socket emits */
 export const JOIN: string = 'join';
 export const ADD_NOTE: string = 'addNote';
